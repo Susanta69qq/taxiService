@@ -8,20 +8,24 @@ const registerUser = async (req, res, next) => {
     return res.status(400).json({ errors: errors.array() });
   }
 
-  const { fullName, email, password } = req.body;
+  try {
+    const { fullName, email, password } = req.body;
 
-  const hashPassword = await userModel.hashPassword(password);
+    const hashPassword = await userModel.hashPassword(password);
 
-  const user = await createUser({
-    firstName: fullName.firstName,
-    lastName: fullName.lastName,
-    email,
-    password: hashPassword,
-  });
+    const user = await createUser({
+      firstName: fullName.firstName,
+      lastName: fullName.lastName,
+      email,
+      password: hashPassword,
+    });
 
-  const token = user.generateAuthToken();
+    const token = user.generateAuthToken();
 
-  res.status(201).json({ user, token });
+    res.status(201).json({ user, token });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
 };
 
 export default registerUser;
