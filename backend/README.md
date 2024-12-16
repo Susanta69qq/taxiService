@@ -51,3 +51,54 @@ Example response:
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
 }
 ```
+
+## Login Endpoint
+
+### Overview
+
+The `/users/login` endpoint is used to authenticate existing users and obtain an authentication token.
+
+### Description
+
+When a user wants to log in, they need to send a POST request to the `/users/login` endpoint with a JSON payload containing their email and password.
+
+### Request Body
+
+The request body should contain the following properties:
+
+- `email`: a string representing the user's email address
+- `password`: a string representing the user's password
+
+Example request body:
+
+```
+{
+  "email": "johndoe@example.com",
+  "password": "password123"
+}
+
+Status Codes
+201 Created: The user is authenticated successfully and an authentication token is returned.
+400 Bad Request: The request body is invalid or missing required fields.
+401 Unauthorized: The email or password is incorrect.
+500 Internal Server Error: An error occurred while authenticating the user.
+
+### Request Body
+
+### Response
+The response will contain the authenticated user's data and an authentication token.
+
+Example response:
+
+{
+  "user": {
+    "_id": "1234567890",
+    "fullName": {
+      "firstName": "John",
+      "lastName": "Doe"
+    },
+    "email": "johndoe@example.com"
+  },
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+}
+```
