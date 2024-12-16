@@ -51,6 +51,8 @@ const loginUser = async (req, res, next) => {
 
     const token = user.generateAuthToken();
 
+    res.cookie("token", token);
+
     res.status(201).json({ user, token });
   } catch (error) {
     return res
@@ -59,4 +61,8 @@ const loginUser = async (req, res, next) => {
   }
 };
 
-export { registerUser, loginUser };
+const getUserProfile = async (req, res, next) => {
+  res.status(200).json(req.user);
+};
+
+export { registerUser, loginUser, getUserProfile };
