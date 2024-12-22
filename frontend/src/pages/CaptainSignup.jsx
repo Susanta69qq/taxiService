@@ -11,7 +11,7 @@ const CaptainSignup = () => {
   const submitHandler = (e) => {
     e.preventDefault();
     setUserData({
-      username: {
+      fullName: {
         firstName: firstName,
         lastName: lastName,
       },
@@ -28,12 +28,12 @@ const CaptainSignup = () => {
     <div className="h-screen py-5 px-5 flex flex-col justify-between">
       <div>
         <img
-          className="w-[20vw] object-center rounded-[2vw] ml-4 mb-3"
+          className="w-[20vw] object-center rounded-[2vw] ml-4 mb-5"
           src="https://media.istockphoto.com/id/1153445663/vector/steering-wheel-icon-car-and-drive-or-driver-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=H58CVFRXlUSp6fT9pjpg-NG4hN-OhJY1xp9rSSrLNBs="
           alt=""
         />
         <form onSubmit={(e) => submitHandler(e)}>
-          <h3 className="text-lg font-medium mb-2">What's your name?</h3>
+          <h3 className="text-lg font-medium mb-2">What's our Captain's name?</h3>
 
           <div className="flex gap-4 mb-6">
             <input
@@ -54,7 +54,7 @@ const CaptainSignup = () => {
             />
           </div>
 
-          <h3 className="text-lg font-medium mb-2">What's your email?</h3>
+          <h3 className="text-lg font-medium mb-2">What's our Captain's email?</h3>
 
           <input
             required
