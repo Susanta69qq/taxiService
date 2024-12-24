@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react'
 
-const ConfirmedVehiclePanel = (props) => {
+const LookingForDriver = () => {
   return (
     <div>
       <h5
@@ -9,7 +9,7 @@ const ConfirmedVehiclePanel = (props) => {
       >
         <i className="ri-arrow-down-wide-line text-3xl text-gray-600"></i>
       </h5>
-      <h3 className="text-2xl font-semibold mb-5">Confirm your Ride</h3>
+      <h3 className="text-2xl font-semibold mb-5">Looking for a Driver</h3>
 
       <div className="flex gap-2 flex-col justify-between items-center">
         <img
@@ -44,18 +44,9 @@ const ConfirmedVehiclePanel = (props) => {
             </div>
           </div>
         </div>
-        <button
-          onClick={() => {
-            props.setVehicleFound(true);
-            props.setConfirmVehiclePanel(false);
-          }}
-          className="w-full mt-5 bg-green-600 text-white font-semibold p-2 rounded-lg"
-        >
-          Confirm
-        </button>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default ConfirmedVehiclePanel;
+export default LookingForDriver
