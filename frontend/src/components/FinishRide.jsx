@@ -1,19 +1,22 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-const RidePopUp = (props) => {
+const FinishRide = (props) => {
   return (
     <div>
       <h5
         onClick={() => {
-          props.setRidePopUpPanel(false);
+          props.setFinishRidePanel(false);
         }}
         className="p-1 text-center absolute top-0 w-[93%]"
       >
         <i className="ri-arrow-down-wide-line text-3xl text-gray-600"></i>
       </h5>
-      <h3 className="text-2xl font-semibold mb-5">New Ride available!</h3>
+      <h3 className="text-2xl font-semibold mb-5">
+        Finish this Ride
+      </h3>
 
-      <div className="flex items-center justify-between mt-4 p-3 bg-yellow-400 rounded-lg">
+      <div className="flex items-center justify-between mt-4 p-4 border-2 bg-yellow-400 rounded-lg">
         <div className="flex items-center gap-3">
           <img
             className="h-12 w-12 rounded-full object-cover"
@@ -53,27 +56,19 @@ const RidePopUp = (props) => {
             </div>
           </div>
         </div>
-        <div className="flex items-center gap-2 mt-5 w-full">
-          <button
-            onClick={() => {
-              props.setConfirmRidePopUpPanel(true);
-            }}
-            className="w-full bg-green-600 text-white font-semibold p-3 px-8 rounded-lg"
+
+        <div className="mt-6 w-full">
+          <Link
+            to={"/captain-home"}
+            className="w-full mt-5 flex text-lg justify-center bg-green-600 text-white font-semibold p-3 rounded-lg"
           >
-            Accept
-          </button>
-          <button
-            onClick={() => {
-              props.setRidePopUpPanel(false);
-            }}
-            className="w-full bg-gray-300 text-gray-700 font-semibold p-3 px-8 rounded-lg"
-          >
-            Ignore
-          </button>
+            Finish Ride
+          </Link>
+          <p className="mt-5 text-xs">Click on finish ride button if you have received the payment.</p>
         </div>
       </div>
     </div>
   );
 };
 
-export default RidePopUp;
+export default FinishRide;
