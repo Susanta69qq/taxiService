@@ -7,7 +7,7 @@ const rideDetails = async (req, res, next) => {
     return res.status(400).json({ errors: errors.array() });
   }
 
-  const { userId, pickup, destination, vehicleType } = req.body;
+  const { pickup, destination, vehicleType } = req.body;
 
   try {
     const ride = await createRide({
