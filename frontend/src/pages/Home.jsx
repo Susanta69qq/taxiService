@@ -138,7 +138,7 @@ const Home = () => {
       });
     } else {
       gsap.to(waitingForDriverRef.current, {
-        transform: "translateY(100%)",
+        transform: "translateY(110%)",
       });
     }
   }, [waitingForDriver]);
@@ -203,19 +203,19 @@ const Home = () => {
         </h5>
         <div className="h-[30%] bg-white p-6 relative">
           <h4 className="text-2xl font-semibold">Find a trip</h4>
-          <form 
+          <form
             onSubmit={(e) => {
               submitHandler(e);
             }}
-            className="relative py-3"
+            className="relative py-4"
           >
-            <div className="line absolute h-16 w-1 top-[45%] left-10 bg-gray-700 rounded-full"></div>
+            <div className="line absolute h-16 w-1 top-[22%] left-5 bg-gray-700 rounded-full"></div>
             <input
               onClick={() => {
                 setPanelOpen(true);
                 setActiveField("pickup");
               }}
-              className="bg-[#eeeeee] px-12 py-2 text-lg rounded-lg w-full mt-5"
+              className="bg-[#eeeeee] px-12 py-2 text-lg rounded-lg w-full"
               type="text"
               placeholder="Add a pick-up location"
               value={pickup}
@@ -234,7 +234,7 @@ const Home = () => {
             />
           </form>
           <button
-            className="bg-black text-white px-4 py-2 rounded-lg mt-3 w-full"
+            className="bg-black text-white px-4 py-2 rounded-lg mt-3 w-full mb-3"
             onClick={findTrip}
           >
             Find Trip
@@ -262,6 +262,8 @@ const Home = () => {
         <VehiclePanel
           setConfirmVehiclePanel={setConfirmVehiclePanel}
           setVehiclePanelOpen={setVehiclePanelOpen}
+          fare={fare}
+          selectVehicle={setVehicleType}
         />
       </div>
       <div
@@ -271,13 +273,25 @@ const Home = () => {
         <ConfirmedVehiclePanel
           setConfirmVehiclePanel={setConfirmVehiclePanel}
           setVehicleFound={setVehicleFound}
+          createRide={createRide}
+          pickup={pickup}
+          destination={destination}
+          fare={fare}
+          vehicleType={vehicleType}
         />
       </div>
       <div
         ref={vehicleFoundRef}
         className="fixed w-full z-10 bottom-0 translate-y-full bg-white px-3 py-6 pt-12"
       >
-        <LookingForDriver setVehicleFound={setVehicleFound} />
+        <LookingForDriver
+          setVehicleFound={setVehicleFound}
+          createRide={createRide}
+          pickup={pickup}
+          destination={destination}
+          fare={fare}
+          vehicleType={vehicleType}
+        />
       </div>
       <div
         ref={waitingForDriverRef}
