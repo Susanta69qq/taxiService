@@ -4,7 +4,6 @@ import express from "express";
 import cors from "cors";
 import connectToDB from "./db/db.js";
 const app = express();
-const port = process.env.PORT || 3000;
 import cookieParser from "cookie-parser";
 import userRoutes from "./routes/user.routes.js";
 import captainRoutes from "./routes/captain.routes.js";
@@ -27,6 +26,4 @@ app.use("/captains", captainRoutes);
 app.use("/maps", mapsRoutes);
 app.use("/rides", rideRoutes);
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+export default app;
