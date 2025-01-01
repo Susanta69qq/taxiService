@@ -29,8 +29,8 @@ const CaptainHome = () => {
           socket.emit("update-location-captain", {
             userId: captain._id,
             location: {
-              latitude: position.coords.latitude,
-              longitude: position.coords.longitude,
+              ltd: position.coords.latitude,
+              lng: position.coords.longitude,
             },
           });
         });

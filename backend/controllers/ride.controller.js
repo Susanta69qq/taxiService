@@ -5,7 +5,7 @@ import {
 import { createRide, getFare } from "../services/ride.services.js";
 import { validationResult } from "express-validator";
 
-const rideDetails = async (req, res, next) => {
+const rideDetails = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
@@ -20,7 +20,6 @@ const rideDetails = async (req, res, next) => {
       destination,
       vehicleType,
     });
-
     res.status(201).json(ride);
 
     const pickupCoordinates = await getAddressCoordinate(pickup);
@@ -32,11 +31,9 @@ const rideDetails = async (req, res, next) => {
     );
 
     console.log(captainsInRadius);
-  } catch (error) {
-    if (!res.headersSent) {
-      return res.status(500).json({ message: error.message });
-    }
-    console.error("Error after response sent:", error);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ message: err.message });
   }
 };
 
