@@ -12,8 +12,8 @@ const getAddressCoordinate = async (address) => {
     if (response.data.status === "OK") {
       const location = response.data.results[0].geometry.location;
       return {
-        latitude: location.lat,
-        longitude: location.lng,
+        ltd: location.lat,
+        lng: location.lng,
       };
     } else {
       throw new Error("Unable to fetch coordinates");
@@ -84,7 +84,6 @@ const getCaptainsInTheRadius = async (ltd, lng, radius) => {
       },
     },
   });
-
   return captains;
 };
 

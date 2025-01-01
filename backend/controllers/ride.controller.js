@@ -11,7 +11,7 @@ const rideDetails = async (req, res, next) => {
     return res.status(400).json({ errors: errors.array() });
   }
 
-  const { pickup, destination, vehicleType } = req.body;
+  const { userId, pickup, destination, vehicleType } = req.body;
 
   try {
     const ride = await createRide({
@@ -23,19 +23,22 @@ const rideDetails = async (req, res, next) => {
 
     res.status(201).json(ride);
 
-    // Perform additional operations after sending the response
     const pickupCoordinates = await getAddressCoordinate(pickup);
+
     const captainsInRadius = await getCaptainsInTheRadius(
-      pickupCoordinates.latitude,
-      pickupCoordinates.longitude,
+      pickupCoordinates.ltd,
+      pickupCoordinates.lng,
       2
     );
 
     console.log(captainsInRadius);
   } catch (error) {
-    return res.status(500).json({ message: error.message });
+    if (!res.headersSent) {
+      return res.status(500).json({ message: error.message });
+    }
+    console.error("Error after response sent:", error);
   }
-};  
+};
 
 const getRideFare = async (req, res, next) => {
   const errors = validationResult(req);
