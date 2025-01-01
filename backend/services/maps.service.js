@@ -74,13 +74,13 @@ const getAutoSuggestion = async (input) => {
   }
 };
 
-const getCaptainsInTheRadius = async (latitude, longitude, radius) => {
+const getCaptainsInTheRadius = async (ltd, lng, radius) => {
   //radius in kms
 
   const captains = await captainModel.find({
     location: {
       $geoWithin: {
-        $centerSphere: [[longitude, latitude], radius / 6371],
+        $centerSphere: [[ltd, lng], radius / 6371],
       },
     },
   });

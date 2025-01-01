@@ -23,19 +23,19 @@ const rideDetails = async (req, res, next) => {
 
     res.status(201).json(ride);
 
+    // Perform additional operations after sending the response
     const pickupCoordinates = await getAddressCoordinate(pickup);
-
     const captainsInRadius = await getCaptainsInTheRadius(
       pickupCoordinates.latitude,
       pickupCoordinates.longitude,
       2
     );
 
-    console.log(captainsInRadius)
+    console.log(captainsInRadius);
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
-};
+};  
 
 const getRideFare = async (req, res, next) => {
   const errors = validationResult(req);
