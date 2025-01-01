@@ -1,3 +1,7 @@
+import {
+  getAddressCoordinate,
+  getCaptainsInTheRadius,
+} from "../services/maps.service.js";
 import { createRide, getFare } from "../services/ride.services.js";
 import { validationResult } from "express-validator";
 
@@ -16,7 +20,18 @@ const rideDetails = async (req, res, next) => {
       destination,
       vehicleType,
     });
-    return res.status(201).json(ride);
+
+    res.status(201).json(ride);
+
+    const pickupCoordinates = await getAddressCoordinate(pickup);
+
+    const captainsInRadius = await getCaptainsInTheRadius(
+      pickupCoordinates.latitude,
+      pickupCoordinates.longitude,
+      2
+    );
+
+    console.log(captainsInRadius)
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }

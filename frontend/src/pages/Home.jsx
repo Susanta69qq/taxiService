@@ -33,12 +33,14 @@ const Home = () => {
   const vehicleFoundRef = useRef(null);
   const waitingForDriverRef = useRef(null);
 
-  const { socket } = useContext(SocketContext);
+  const socket = useContext(SocketContext);
   const { user } = useContext(UserDataContext);
 
   useEffect(() => {
-    
-  }, []);
+    if (socket && user) {
+      socket.emit("join", { userId: user._id, userType: "user" });
+    }
+  }, [socket, user]);
 
   const handlePickupChange = async (e) => {
     setPickup(e.target.value);

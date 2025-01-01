@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const UserLogout = () => {
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("userToken");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -15,7 +15,7 @@ const UserLogout = () => {
       })
       .then((response) => {
         if (response.status === 200) {
-          localStorage.removeItem("token");
+          localStorage.removeItem("userToken");
           navigate("/login");
         }
       });
