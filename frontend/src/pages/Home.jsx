@@ -42,6 +42,12 @@ const Home = () => {
     }
   }, [socket, user]);
 
+  socket.on("ride-confimed", (ride) => {
+    setWaitingForDriver(true);
+    setVehicleFound(false);
+    setRide(ride);
+  });
+
   const handlePickupChange = async (e) => {
     setPickup(e.target.value);
     try {
@@ -50,7 +56,7 @@ const Home = () => {
         {
           params: { input: e.target.value },
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${localStorage.getItem("userToken")}`,
           },
         }
       );
@@ -69,7 +75,7 @@ const Home = () => {
         {
           params: { input: e.target.value },
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${localStorage.getItem("userToken")}`,
           },
         }
       );
@@ -163,7 +169,7 @@ const Home = () => {
       {
         params: { pickup, destination },
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${localStorage.getItem("userToken")}`,
         },
       }
     );
@@ -181,7 +187,7 @@ const Home = () => {
       },
       {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${localStorage.getItem("userToken")}`,
         },
       }
     );
