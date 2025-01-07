@@ -44,6 +44,8 @@ const Home = () => {
     setVehicleFound(false);
     setVehiclePanelOpen(false);
     setWaitingForDriver(true);
+    setRide(ride);
+    console.log(ride);
   });
 
   const handlePickupChange = async (e) => {
@@ -317,6 +319,8 @@ const Home = () => {
         <WaitForDriver
           setWaitingForDriver={setWaitingForDriver}
           waitingForDriver={waitingForDriver}
+          ride={ride}
+          setVehicleFound={setVehicleFound}
         />
       </div>
     </div>
