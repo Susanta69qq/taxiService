@@ -1,7 +1,7 @@
 import React from "react";
 
 const WaitForDriver = (props) => {
-  console.log(props)
+  console.log(props);
   return (
     <div>
       <h5
@@ -24,7 +24,7 @@ const WaitForDriver = (props) => {
             {props.ride?.captain.vehicle.plate}
           </h4>
           <p className="text-sm text-gray-600">Maruti Suzuki Alto</p>
-          <h1 className="text-lg font-semibold"> {props.ride?.otp} </h1>
+          <h1 className="text-lg font-semibold"> OTP - {props.ride?.otp} </h1>
         </div>
       </div>
 
