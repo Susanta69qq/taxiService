@@ -37,15 +37,13 @@ const Home = () => {
   const { user } = useContext(UserDataContext);
 
   useEffect(() => {
-    if (socket && user) {
-      socket.emit("join", { userId: user._id, userType: "user" });
-    }
-  }, [socket, user]);
+    socket.emit("join", { userType: "user", userId: user._id });
+  }, [user]);
 
-  socket.on("ride-confimed", (ride) => {
-    setWaitingForDriver(true);
+  socket.on("ride-confirmed", (ride) => {
     setVehicleFound(false);
-    setRide(ride);
+    setVehiclePanelOpen(false);
+    setWaitingForDriver(true);
   });
 
   const handlePickupChange = async (e) => {
@@ -94,8 +92,8 @@ const Home = () => {
     if (panelOpen) {
       gsap.to(panelRef.current, {
         height: "70%",
-        opacity: 1,
         padding: 24,
+        opacity: 1,
       });
       gsap.to(panelCloseRef.current, {
         opacity: 1,
@@ -103,7 +101,6 @@ const Home = () => {
     } else {
       gsap.to(panelRef.current, {
         height: "0%",
-        opacity: 0,
         padding: 0,
       });
       gsap.to(panelCloseRef.current, {
@@ -148,17 +145,20 @@ const Home = () => {
     }
   }, [vehicleFound]);
 
-  useGSAP(() => {
-    if (waitingForDriver) {
-      gsap.to(waitingForDriverRef.current, {
-        transform: "translateY(0)",
-      });
-    } else {
-      gsap.to(waitingForDriverRef.current, {
-        transform: "translateY(100%)",
-      });
-    }
-  }, [waitingForDriver]);
+  useGSAP(
+    function () {
+      if (waitingForDriver) {
+        gsap.to(waitingForDriverRef.current, {
+          transform: "translateY(0)",
+        });
+      } else {
+        gsap.to(waitingForDriverRef.current, {
+          transform: "translateY(100%)",
+        });
+      }
+    },
+    [waitingForDriver]
+  );
 
   const findTrip = async () => {
     setVehiclePanelOpen(true);
@@ -312,9 +312,12 @@ const Home = () => {
       </div>
       <div
         ref={waitingForDriverRef}
-        className="fixed w-full z-11 bottom-0  bg-white px-3 py-6 pt-12"
+        className="fixed w-full z-10 bottom-0  bg-white px-3 py-6 pt-12"
       >
-        <WaitForDriver setWaitingForDriver={setWaitingForDriver} />
+        <WaitForDriver
+          setWaitingForDriver={setWaitingForDriver}
+          waitingForDriver={waitingForDriver}
+        />
       </div>
     </div>
   );
