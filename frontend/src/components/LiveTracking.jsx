@@ -1,47 +1,55 @@
-import React, { useState, useEffect, useContext } from 'react'
-import { LoadScript, GoogleMap, Marker } from '@react-google-maps/api'
-import { SocketContext } from '../context/SocketContext';
+import React, { useState, useEffect, useContext } from "react";
+import { LoadScript, GoogleMap, Marker } from "@react-google-maps/api";
 
 const containerStyle = {
-  width: '100%',
-  height: '100%'
+  width: "100%",
+  height: "100%",
 };
 
 const center = {
   lat: -3.745,
-  lng: -38.523
+  lng: -38.523,
 };
 
-const LiveTracking = ({ userType, userId }) => {
+const LiveTracking = () => {
   const [currentPosition, setCurrentPosition] = useState(center);
-  const socket = useContext(SocketContext);
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      const { latitude, longitude } = position.coords;
+      setCurrentPosition({
+        lat: latitude,
+        lng: longitude,
+      });
+    });
+
+    const watchId = navigator.geolocation.watchPosition((position) => {
+      const { latitude, longitude } = position.coords;
+      setCurrentPosition({
+        lat: latitude,
+        lng: longitude,
+      });
+    });
+
+    return () => navigator.geolocation.clearWatch(watchId);
+  }, []);
 
   useEffect(() => {
     const updatePosition = () => {
       navigator.geolocation.getCurrentPosition((position) => {
         const { latitude, longitude } = position.coords;
+
+        console.log("Position updated:", latitude, longitude);
         setCurrentPosition({
           lat: latitude,
-          lng: longitude
+          lng: longitude,
         });
-
-        // Emit location update to the server
-        socket.emit('update-location', {
-          userId,
-          userType,
-          location: {
-            lat: latitude,
-            lng: longitude
-          }
-        })
       });
     };
 
     updatePosition();
     const intervalId = setInterval(updatePosition, 10000);
-
-    return () => clearInterval(intervalId);
-  }, [socket, userId, userType]);
+  }, []);
 
   return (
     <LoadScript googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
@@ -53,7 +61,7 @@ const LiveTracking = ({ userType, userId }) => {
         <Marker position={currentPosition} />
       </GoogleMap>
     </LoadScript>
-  )
-}
+  );
+};
 
-export default LiveTracking
+export default LiveTracking;

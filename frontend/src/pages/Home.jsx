@@ -11,7 +11,7 @@ import axios from "axios";
 import { SocketContext } from "../context/SocketContext";
 import { UserDataContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
-import LiveTracking from "../components/LiveTracking"
+import LiveTracking from "../components/LiveTracking";
 
 const Home = () => {
   const [pickup, setPickup] = useState("");
@@ -212,7 +212,7 @@ const Home = () => {
       />
       <div className="h-screen w-screen">
         {/* image for temporary use */}
-        <LiveTracking userType="user" userId={user._id} />
+        <LiveTracking />
       </div>
       <div className="flex flex-col justify-end h-screen absolute top-0 w-full">
         <h5
