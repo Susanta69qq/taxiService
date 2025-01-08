@@ -1,7 +1,6 @@
 import React from "react";
 
 const WaitForDriver = (props) => {
-  console.log(props);
   return (
     <div>
       <h5

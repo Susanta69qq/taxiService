@@ -10,6 +10,7 @@ import WaitForDriver from "../components/WaitForDriver";
 import axios from "axios";
 import { SocketContext } from "../context/SocketContext";
 import { UserDataContext } from "../context/UserContext";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [pickup, setPickup] = useState("");
@@ -25,6 +26,8 @@ const Home = () => {
   const [fare, setFare] = useState({});
   const [vehicleType, setVehicleType] = useState(null);
   const [ride, setRide] = useState(null);
+
+  const navigate = useNavigate();
 
   const panelRef = useRef(null);
   const panelCloseRef = useRef(null);
@@ -46,6 +49,11 @@ const Home = () => {
     setWaitingForDriver(true);
     setRide(ride);
     console.log(ride);
+  });
+
+  socket.on("ride-started", (ride) => {
+    setWaitingForDriver(false);
+    navigate("/riding", { state: { ride } });
   });
 
   const handlePickupChange = async (e) => {
