@@ -8,6 +8,7 @@ import ConfirmRidePopUp from "../components/ConfirmRidePopUp";
 import { SocketContext } from "../context/SocketContext";
 import { CaptainDataContext } from "../context/CaptainContext";
 import axios from "axios";
+import LiveTracking from "../components/LiveTracking";
 
 const CaptainHome = () => {
   const [ridePopUpPanel, setRidePopUpPanel] = useState(false);
@@ -92,7 +93,7 @@ const CaptainHome = () => {
 
   return (
     <div className="h-screen">
-      <div className="fixed w-full p-6 top-0 flex items-center justify-between">
+      <div className="fixed w-full p-6 pt-16 top-0 flex items-center justify-between z-10">
         <img className="w-16" src="/logo/zippy.png" alt="" />
         <Link
           to={"/captain-login"}
@@ -102,11 +103,7 @@ const CaptainHome = () => {
         </Link>
       </div>
       <div className="h-3/5">
-        <img
-          className="h-full w-full object-cover"
-          src="https://miro.medium.com/v2/resize:fit:1400/0*gwMx05pqII5hbfmX.gif"
-          alt=""
-        />
+        <LiveTracking />
       </div>
       <div className="h-2/5 p-6">
         <CaptainDetails />
