@@ -206,7 +206,7 @@ const Home = () => {
   return (
     <div className="h-screen relative overflow-hidden">
       <img
-        className="w-[16vw] absolute left-5 top-16 z-10"
+        className="w-[16vw] absolute left-5 top-5"
         src="/logo/zippy.png"
         alt=""
       />
