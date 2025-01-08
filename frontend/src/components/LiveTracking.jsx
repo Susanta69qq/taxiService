@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { LoadScript, GoogleMap, Marker } from '@react-google-maps/api'
+import { SocketContext } from '../context/SocketContext';
 
 const containerStyle = {
   width: '100%',
@@ -11,8 +12,9 @@ const center = {
   lng: -38.523
 };
 
-const LiveTracking = () => {
+const LiveTracking = ({ userType, userId }) => {
   const [currentPosition, setCurrentPosition] = useState(center);
+  const socket = useContext(SocketContext);
 
   useEffect(() => {
     const updatePosition = () => {
@@ -22,6 +24,16 @@ const LiveTracking = () => {
           lat: latitude,
           lng: longitude
         });
+
+        // Emit location update to the server
+        socket.emit('update-location', {
+          userId,
+          userType,
+          location: {
+            lat: latitude,
+            lng: longitude
+          }
+        })
       });
     };
 
@@ -29,7 +41,7 @@ const LiveTracking = () => {
     const intervalId = setInterval(updatePosition, 10000);
 
     return () => clearInterval(intervalId);
-  }, []);
+  }, [socket, userId, userType]);
 
   return (
     <LoadScript googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>

@@ -212,7 +212,7 @@ const Home = () => {
       />
       <div className="h-screen w-screen">
         {/* image for temporary use */}
-        <LiveTracking />
+        <LiveTracking userType="user" userId={user._id} />
       </div>
       <div className="flex flex-col justify-end h-screen absolute top-0 w-full">
         <h5
