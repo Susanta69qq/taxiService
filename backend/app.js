@@ -17,8 +17,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-app.get("/", (req, res) => {
-  res.send("Hello world");
+//route for ping service and health checkup of backend service
+app.get("/health", (req, res) => {
+  res.status(200).send("Ok working");
 });
 
 app.use("/users", userRoutes);
