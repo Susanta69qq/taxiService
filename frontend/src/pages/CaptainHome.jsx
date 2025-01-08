@@ -93,7 +93,7 @@ const CaptainHome = () => {
 
   return (
     <div className="h-screen">
-      <div className="fixed w-full p-6 pt-16 top-0 flex items-center justify-between z-10">
+      <div className="fixed w-full p-6 top-0 flex items-center justify-between">
         <img className="w-16" src="/logo/zippy.png" alt="" />
         <Link
           to={"/captain-login"}
