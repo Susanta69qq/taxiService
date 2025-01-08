@@ -48,7 +48,6 @@ const Home = () => {
     setVehiclePanelOpen(false);
     setWaitingForDriver(true);
     setRide(ride);
-    console.log(ride);
   });
 
   socket.on("ride-started", (ride) => {
