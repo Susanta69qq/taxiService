@@ -5,6 +5,7 @@ import {
   confirmRide,
   getRideFare,
   rideDetails,
+  startRide,
 } from "../controllers/ride.controller.js";
 import { authCaptain, authUser } from "../middlewares/auth.middleware.js";
 
@@ -45,6 +46,17 @@ router.post(
   authCaptain,
   body("rideId").isMongoId().withMessage("Invalid ride id"),
   confirmRide
+);
+
+router.get(
+  "/start-ride",
+  authCaptain,
+  query("rideId").isMongoId().withMessage("Invalid ride id"),
+  query("otp")
+    .isString()
+    .isLength({ min: 6, max: 6 })
+    .withMessage("Invalid OTP"),
+  startRide
 );
 
 export default router;

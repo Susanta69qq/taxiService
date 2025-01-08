@@ -2,7 +2,7 @@ import {
   getAddressCoordinate,
   getCaptainsInTheRadius,
 } from "../services/maps.service.js";
-import { createRide, getFare } from "../services/ride.services.js";
+import { createRide, getFare, startRideService } from "../services/ride.services.js";
 import { validationResult } from "express-validator";
 import { sendMessageToSocketId } from "../socket.js";
 import rideModel from "../models/ride.model.js";
@@ -90,4 +90,27 @@ const confirmRide = async (req, res, next) => {
   }
 };
 
-export { rideDetails, getRideFare, confirmRide };
+const startRide = async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  const { rideId, otp } = req.query;
+
+  try {
+    const ride = await startRideService({ rideId, otp, captain: req.captain });
+
+    sendMessageToSocketId(ride.user.socketId, {
+      event: "ride-started",
+      data: ride,
+    });
+
+    return res.status(200).json(ride);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: error.message });
+  }
+};
+
+export { rideDetails, getRideFare, confirmRide, startRide };
